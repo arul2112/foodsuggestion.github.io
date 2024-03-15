@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Suggestion</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-image: url('https://images.rawpixel.com/image_1300/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2lzMTYwNjItaW1hZ2Uta3d2eWZrd3IuanBn.jpg'); /* Placeholder image, replace with your own */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 20px;
+    margin: 0;
+  }
+
+  h1 {
+    color: #fff;
+    margin-top: 50px; /* Adjust as needed */
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  #foodSuggestion {
+    font-size: 18px;
+    color: #fff;
+    margin-top: 50px; /* Adjust as needed */
+    margin-bottom: 50px; /* Adjust as needed */
+  }
+
+  #swiggyLink {
+    display: block;
+    background-color: #ff5722;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Adjust as needed */
+    margin-bottom: 20px; /* Adjust as needed */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #swiggyLink:hover {
+    background-color: #f44336;
+  }
+</style>
+</head>
+<body>
+
+<h1>Food Suggestion</h1>
+
+<button onclick="suggestFood()">Get Food Suggestion</button>
+
+<div id="foodSuggestion"></div>
+
+<script>
+var currentHour = new Date().getHours();
+var suggestionIndex = 0;
+
+// Define the food items for each meal
+var breakfastItems = [
+    "Idli", "Dosa", "Pongal", "Vada", "Upma",
+    "Puri with Potato Masala", "Adai", "Appam", "Puttu", "Poori Masala"
+];
+
+var lunchItems = [
+    "Meals", "Chicken Biryani", "Fish Curry",
+    "Lemon Rice", "Curd Rice", "Vegetable Pulao", "Chapati",
+    "Egg Curry", "Parotta", "Thali Meals"
+];
+
+var dinnerItems = [
+    "Chicken Biryani", "Fish Curry", "Lemon Rice", "Curd Rice",
+    "Vegetable Pulao", "Chapati with Dal", "Egg Curry", "Parotta",
+    "Thali Meals", "Tandoori Chicken"
+];
+
+function suggestFood() {
+    var suggestion;
+
+    if (6 <= currentHour && currentHour < 12) {
+        suggestion = "Breakfast: " + breakfastItems[suggestionIndex % breakfastItems.length];
+    } else if (12 <= currentHour && currentHour < 18) {
+        suggestion = "Lunch: " + lunchItems[suggestionIndex % lunchItems.length];
+    } else {
+        suggestion = "Dinner: " + dinnerItems[suggestionIndex % dinnerItems.length];
+    }
+
+    var foodSuggestionDiv = document.getElementById("foodSuggestion");
+    foodSuggestionDiv.innerHTML = suggestion;
+
+    // Create Swiggy link
+    var swiggyLink = document.createElement("a");
+    var foodName = suggestion.split(": ")[1].replace(/\s+/g, "+"); // Replace spaces with "+"
+    swiggyLink.href = "https://www.swiggy.com/search?query=" + foodName;
+    swiggyLink.target = "_blank";
+    swiggyLink.innerHTML = "Order on Swiggy";
+    swiggyLink.id = "swiggyLink";
+    
+    // Add Swiggy link below the food suggestion
+    foodSuggestionDiv.appendChild(swiggyLink);
+
+    // Increment suggestion index for the next suggestion
+    suggestionIndex++;
+}
+</script>
+
+</body>
+</html>
